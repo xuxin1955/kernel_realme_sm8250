@@ -181,7 +181,7 @@ endif
 inner_mk_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 inner_mk_dir := $(shell dirname $(inner_mk_path))
 inner_dir := $(wildcard $(inner_mk_dir)/../vendor/oplus/kernel/*/oplus_wakelock_profiler.h)
-inner_wakelock_dir := $(shell echo $(inner_dir) | awk -F '/' '{ print $$(NF-1) }')
+inner_wakelock_dir := $(shell echo $(inner_dir) | awk -F '/' 'NF>1{ print $$(NF-1) }')
 ifneq ($(inner_wakelock_dir),)
 $(warning "ln the wakelock_profiler_h,mk is $(inner_mk_dir),dir is $(inner_dir), wakelock_dir is $(inner_wakelock_dir)")
 $(shell ln -sf $(inner_mk_dir)/../vendor/oplus/kernel/$(inner_wakelock_dir) $(inner_mk_dir)/../kernel/msm-4.19/drivers/soc/oplus/owakelock)
